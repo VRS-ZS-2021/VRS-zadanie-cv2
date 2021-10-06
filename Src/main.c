@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "assignment.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -79,6 +80,23 @@ int main(void)
 
   /* USER CODE BEGIN Init */
 
+  //Pin A3 input mode
+  GPIOA_MODER_REG &= ~(uint32_t)(0x3 << 6);
+
+  //pin A4 output mode
+  GPIOA_MODER_REG &= ~(uint32_t)(0x3 << 8);
+  GPIOA_MODER_REG |= (uint32_t)(1 << 8);
+
+  //pin A4 OTYPER mode push-pull
+  GPIOA_OTYPER_REG &= ~(uint32_t)(1 << 4);
+
+  //pin A4 OSPEEDER low speed
+  GPIOA_OSPEEDER_REG &= ~(0x3 << 8);
+
+  //pin A4 no-pull
+  GPIOA_PUPDR_REG &= ~(0x3 << 8);
+
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -97,6 +115,7 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  GPIOA_BSRR_REG |= (uint32_t)(1 << 4);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
