@@ -41,10 +41,10 @@
 #define	RCC_AHBENR_REG			/* Add ahben register address here. */
 
 /* LED and button macros */
-#define LED_ON					/* Add LED_ON implementation here. */
-#define LED_OFF					/* Add LED_OFF implementation here. */
+#define LED_ON					*((volatile uint32_t *)((uint32_t)(0x48000000 + 0x18U))) |= (1 << 4)
+#define LED_OFF					*((volatile uint32_t *)((uint32_t)(0x48000000 + 0x28U))) |= (1 << 4)
 
-#define BUTTON_GET_STATE		/* Add BUTTON_GET_STATE implementation here. */
+#define BUTTON_GET_STATE		*((volatile uint32_t *)((uint32_t)(0x48000000 + 0x10U))) & (1 << 3))
 
 
 #endif /* ASSIGNMENT_H_ */
