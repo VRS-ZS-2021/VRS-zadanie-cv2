@@ -100,7 +100,7 @@ int main(void)
   /* USER CODE END Init */
 
   /* Configure the system clock */
-  SystemClock_Config();
+  //SystemClock_Config();
 
   /* USER CODE BEGIN SysInit */
 
@@ -114,13 +114,26 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
-  {
-	  GPIOA_BSRR_REG |= (uint32_t)(1 << 4);
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-  }
-  /* USER CODE END 3 */
+    {
+  	  if(BUTTON_GET_STATE)
+  	  {
+  		  // 0.25s delay
+  		  LL_mDelay(250);
+  		  LED_ON;
+  		  // 0.25s delay
+  		  LL_mDelay(250);
+  		  LED_OFF;
+  	  }
+  	  else
+  	  {
+  		  // 1s delay
+  		  LL_mDelay(1000);
+  		  LED_ON;
+  		  // 1s delay
+  		  LL_mDelay(1000);
+  		  LED_OFF;
+  	  }
+    }
 }
 
 /**
