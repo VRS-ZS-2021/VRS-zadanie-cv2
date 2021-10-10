@@ -69,9 +69,9 @@ int main(void)
 	   *
 	*/
   //Systick init
- // LL_Init1msTick(8000000);
-  //LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
-  //LL_SetSystemCoreClock(8000000);
+  LL_Init1msTick(8000000);
+  LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
+  LL_SetSystemCoreClock(8000000);
 
 	   /*
 	   * TASK - configure MCU peripherals so that button state can be read and LED will blink.
@@ -113,7 +113,7 @@ int main(void)
 	  //int b = GPIOA_ODR_REG & (1 << 4);
 	  //LED_OFF;
 	  //b = GPIOA_ODR_REG & (1 << 4);
-  	  if(!(BUTTON_GET_STATE& (1 << 3))) {
+  	 if(BUTTON_GET_STATE) {
 
   		  // 0.25s delay
   		  LL_mDelay(250);
@@ -138,33 +138,33 @@ int main(void)
   * @brief System Clock Configuration
   * @retval None
   */
-void SystemClock_Config(void)
-{
-  LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
-  while(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_0)
-  {
-  }
-  LL_RCC_HSI_Enable();
+// void SystemClock_Config(void)
+// {
+//   LL_FLASH_SetLatency(LL_FLASH_LATENCY_0);
+//   while(LL_FLASH_GetLatency()!= LL_FLASH_LATENCY_0)
+//   {
+//   }
+//   LL_RCC_HSI_Enable();
 
-   /* Wait till HSI is ready */
-  while(LL_RCC_HSI_IsReady() != 1)
-  {
+//    /* Wait till HSI is ready */
+//   while(LL_RCC_HSI_IsReady() != 1)
+//   {
 
-  }
-  LL_RCC_HSI_SetCalibTrimming(16);
-  LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
-  LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
-  LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
-  LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
+//   }
+//   LL_RCC_HSI_SetCalibTrimming(16);
+//   LL_RCC_SetAHBPrescaler(LL_RCC_SYSCLK_DIV_1);
+//   LL_RCC_SetAPB1Prescaler(LL_RCC_APB1_DIV_1);
+//   LL_RCC_SetAPB2Prescaler(LL_RCC_APB2_DIV_1);
+//   LL_RCC_SetSysClkSource(LL_RCC_SYS_CLKSOURCE_HSI);
 
-   /* Wait till System clock is ready */
-  while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
-  {
+//    /* Wait till System clock is ready */
+//   while(LL_RCC_GetSysClkSource() != LL_RCC_SYS_CLKSOURCE_STATUS_HSI)
+//   {
 
-  }
-  LL_Init1msTick(8000000);
-  LL_SetSystemCoreClock(8000000);
-}
+//   }
+//   LL_Init1msTick(8000000);
+//   LL_SetSystemCoreClock(8000000);
+// }
 
 /* USER CODE BEGIN 4 */
 
@@ -190,7 +190,7 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed(char *file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
