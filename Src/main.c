@@ -47,7 +47,7 @@
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
+//void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -63,22 +63,30 @@ void SystemClock_Config(void);
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
+	  /*
+	   *  DO NOT WRITE TO THE WHOLE REGISTER!!!
+	   *  Write to the bits, that are meant for change.
+	   *
+	*/
+  //Systick init
+ // LL_Init1msTick(8000000);
+  //LL_SYSTICK_SetClkSource(LL_SYSTICK_CLKSOURCE_HCLK);
+  //LL_SetSystemCoreClock(8000000);
 
-  /* USER CODE END 1 */
+	   /*
+	   * TASK - configure MCU peripherals so that button state can be read and LED will blink.
+	   * Button must be connected to the GPIO port A and its pin 3.
+	   * LED must be connected to the GPIO port A and its pin 4.
+	   *
+	   * In header file "assignment.h" define macros for MCU registers access and LED blink application.
+	   * Code in this file must use these macros for the peripherals setup.
+	   * Code of the LED blink application is already given so just the macros used in the application must be defined.
+	   */
 
-  /* MCU Configuration--------------------------------------------------------*/
+  /* Enable clock for GPIO port A*/
+  *((volatile uint32_t *) (uint32_t)(0x40021000 + 0x00000014U)) |= (uint32_t)(1 << 17);
 
-  /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-
-  LL_APB2_GRP1_EnableClock(LL_APB2_GRP1_PERIPH_SYSCFG);
-  LL_APB1_GRP1_EnableClock(LL_APB1_GRP1_PERIPH_PWR);
-
-  NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
-
-  /* System interrupt init*/
-
-  /* USER CODE BEGIN Init */
+  /* GPIOA pin 3 and 4 setup */
 
   //Pin A3 input mode
   GPIOA_MODER_REG &= ~(uint32_t)(0x3 << 6);
@@ -90,32 +98,21 @@ int main(void)
   //pin A4 OTYPER mode push-pull
   GPIOA_OTYPER_REG &= ~(uint32_t)(1 << 4);
 
-  //pin A4 OSPEEDER low speed
-  GPIOA_OSPEEDER_REG &= ~(0x3 << 8);
+  //pin A4 OSPEEDR low speed
+  GPIOA_OSPEEDR_REG &= ~(uint32_t)(0x3 << 8);
 
   //pin A4 no-pull
-  GPIOA_PUPDR_REG &= ~(0x3 << 8);
+  GPIOA_PUPDR_REG &= ~(uint32_t)(0x3 << 8);
+  //pin A3 pull-up
+  GPIOA_PUPDR_REG &= ~(uint32_t)(0x3 << 6);
+  GPIOA_PUPDR_REG |= (uint32_t)(1 << 6);
 
-
-  /* USER CODE END Init */
-
-  /* Configure the system clock */
-  //SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
-
-  /* Initialize all configured peripherals */
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
     {
 	  int a = BUTTON_GET_STATE;
+	  int b = GPIOA_ODR_REG & (1 << 4);
+	  LED_OFF;
+	  b = GPIOA_ODR_REG & (1 << 4);
   	  if(BUTTON_GET_STATE) {
   		  // 0.25s delay
   		  //LL_mDelay(250);

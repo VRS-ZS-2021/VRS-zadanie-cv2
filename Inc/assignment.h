@@ -22,7 +22,7 @@
 //OTYPER register
 #define	GPIOA_OTYPER_REG		*(uint32_t *)(GPIOA_BASE_ADDR + 0x04U)
 //OSPEEDER register
-#define GPIOA_OSPEEDER_REG		*(uint32_t *)(GPIOA_BASE_ADDR + 0x08U)
+#define GPIOA_OSPEEDR_REG		*(uint32_t *)(GPIOA_BASE_ADDR + 0x08U)
 //PUPDR register
 #define GPIOA_PUPDR_REG			*(uint32_t *)(GPIOA_BASE_ADDR + 0x0CU)
 //IDR register
@@ -41,7 +41,8 @@
 #define	RCC_AHBENR_REG			/* Add ahben register address here. */
 
 /* LED and button macros */
-#define LED_ON					GPIOA_BSRR_REG |= (1 << 4)
+//#define LED_ON					GPIOA_BSRR_REG |= (1 << 4)
+#define LED_ON					GPIOA_ODR_REG |= (1 << 4)
 #define LED_OFF					GPIOA_BRR_REG |= (1 << 4)
 
 #define BUTTON_GET_STATE		GPIOA_IDR_REG & (1 << 3)
