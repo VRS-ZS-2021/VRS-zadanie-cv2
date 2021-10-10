@@ -45,7 +45,7 @@
 #define LED_ON					GPIOA_ODR_REG |= (1 << 4)
 #define LED_OFF					GPIOA_BRR_REG |= (1 << 4)
 
-#define BUTTON_GET_STATE		GPIOA_IDR_REG & (1 << 3)
+#define BUTTON_GET_STATE		GPIOA_IDR_REG
 
 
 #endif /* ASSIGNMENT_H_ */
