@@ -109,25 +109,26 @@ int main(void)
 
   while (1)
     {
-	  int a = BUTTON_GET_STATE;
-	  int b = GPIOA_ODR_REG & (1 << 4);
-	  LED_OFF;
-	  b = GPIOA_ODR_REG & (1 << 4);
-  	  if(BUTTON_GET_STATE) {
+	 // int a = BUTTON_GET_STATE;
+	  //int b = GPIOA_ODR_REG & (1 << 4);
+	  //LED_OFF;
+	  //b = GPIOA_ODR_REG & (1 << 4);
+  	  if(!(BUTTON_GET_STATE& (1 << 3))) {
+
   		  // 0.25s delay
-  		  //LL_mDelay(250);
+  		  LL_mDelay(250);
   		  LED_ON;
   		  // 0.25s delay
-  		  //LL_mDelay(250);
-  		  //LED_OFF;
+  		  LL_mDelay(250);
+  		  LED_OFF;
   	  }
   	  else
   	  {
   		  // 1s delay
-  		  //LL_mDelay(1000);
-  		  //LED_ON;
+  		  LL_mDelay(1000);
+  		  LED_ON;
   		  // 1s delay
-  		  //LL_mDelay(1000);
+  		  LL_mDelay(1000);
   		  LED_OFF;
   	  }
     }
