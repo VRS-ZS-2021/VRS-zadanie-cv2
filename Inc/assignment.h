@@ -34,8 +34,6 @@
 //BRR register
 #define GPIOA_BRR_REG			*(uint32_t *)(GPIOA_BASE_ADDR + 0x28U)
 
-//#define RCC_AHBENR_REG			*((volatile uint32_t *) (uint32_t)(0x40021000 + 0x14U))
-
 /*Reset clock control register macros */
 //RCC base address
 #define	RCC_BASE_ADDR			(uint32_t)(0x40021000)
