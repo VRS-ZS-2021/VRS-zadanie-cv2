@@ -109,12 +109,22 @@ int main(void)
 
   while (1)
     {
-  	 if(!(BUTTON_GET_STATE)) {
-  		  LED_ON;
+  	 if(BUTTON_GET_STATE) {
+  		// 0.25s delay
+  		 LL_mDelay(250);
+  		 LED_ON;
+  		 // 0.25s delay
+  		 LL_mDelay(250);
+  		 LED_OFF;
   	  }
   	  else
   	  {
-  		  LED_OFF;
+  		// 1s delay
+  		 LL_mDelay(1000);
+  		 LED_ON;
+  		 // 1s delay
+  		 LL_mDelay(1000);
+  		 LED_OFF;
   	  }
     }
 }
